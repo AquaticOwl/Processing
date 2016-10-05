@@ -1,0 +1,113 @@
+/*
+  ||||||To-do List||||||
+  -Automatically adjust to any size background
+  
+  
+  
+*/
+
+float rad;
+float radi;
+float R;
+float tempR;
+String theta;
+void setup() {
+  size(500, 500);
+  background(255, 255, 255);
+  radi = 0.00;
+  
+  //Radians around the circle (Theta)
+  theta = "45";
+  R = 200;
+  rad = (float(theta)/360) * 2 * PI;
+  tempR = R;
+  print(rad);
+}
+
+void draw() {
+  
+  R = tempR * sin(2 * rad);
+  
+  strokeWeight(1);
+  background(255, 255, 255);
+  stroke(0);
+  fill(255);
+  arc(50, 450, R * 2, R * 2, PI* 3/2, PI * 2);
+  
+  //Theta Input
+  fill(0);
+  textSize(30);
+  text("theta = " + theta, 300, 150);
+  textSize(12);
+  
+  //X and Y axes
+  stroke(0);
+  line(50, 0, 50, 450);
+  line(50, 450, 500, 450);
+  
+  //Radius
+  line(50, 450, 50 + cos(rad) * R, 450 - sin(rad) * R);
+  strokeWeight(5);
+  
+  //Sine
+  stroke(#FFFF00);
+  line(50 + cos(rad) * R, 450 - sin(rad) * R, 50 + cos(rad) * R, 450);
+  
+  //Cosine
+  stroke(#0000FF);
+  line(50 + cos(rad) * R, 450 - sin(rad) * R, 50, 450 - sin(rad) * R);
+  
+  //Tangent
+  stroke(#00FF00);
+  line(50 + cos(rad) * R, 450 - sin(rad) * R, 50 + sqrt(sq(R) + sq(R * tan(rad))) , 450);
+  
+  //Cosecant = Y of csc - Y of Origin
+  stroke(#FF00FF);
+  line(50, 450, 50, 450 - sqrt(sq(R) + sq(R * 1/tan(rad))));
+  
+  //Secant = X of sec - X or Origin
+  stroke(#FFA500);
+  line(50, 450, 50 + sqrt(sq(R) + sq(R * tan(rad))), 450);
+  
+  //Cotangent
+  stroke(#FF0000);
+  line(50 + cos(rad) * R, 450 - sin(rad) * R, 50, 450 - sqrt(sq(R) + sq(R * 1/tan(rad))));
+  
+  //Labels
+  fill(0);
+  stroke(0);
+  strokeWeight(1);
+  
+  text("Csc(t) = " + 1/sin(rad), 125, 125);
+  line(125, 125, 50, 450 - (sqrt(sq(R) + sq(R * 1/tan(rad)))) * 3/5);
+  
+  text("Cot(t) = " + 1/tan(rad), 175, 175);
+  line(175, 175, (50 + (50 + cos(rad) * R)) * 1/2, ((450 - sin(rad) * R) + (450 - sqrt(sq(R) + sq(R * 1/tan(rad)))))* 1/2);
+  
+  text("Cos(t) = " + cos(rad), 225, 225);
+  line(225, 225, 50 + (50 + cos(rad) * R - 50)/2  , 450 - sin(rad) * R);
+  
+  text("Sin(t) = " + sin(rad), 275, 275);
+  line(275, 275, 50 + cos(rad) * R, 450 - (450 -(450 - sin(rad) * R))/2);
+  
+  text("Tan(t) = " + tan(rad), 325, 325);
+  line(325, 325, ((50 + (sqrt(sq(R) + sq(R * tan(rad))))) + (50 + cos(rad) * R)) * 1/2 , 450 - (450 - (450 - sin(rad) * R)) * 1/2);
+  
+  text("Sec(t) = " + 1/cos(rad), 375, 375);
+  line(375, 375, 50 + ((sqrt(sq(R) + sq(R * tan(rad))))) * 3/5, 450);
+  
+  
+  strokeWeight(10);
+}
+
+void keyReleased() {
+    if (keyCode == BACKSPACE) {
+      if (theta.length() > 0) {
+        theta = theta.substring(0, theta.length()-1);}
+    }else if (keyCode == ENTER) {
+      rad = (float(theta)/360) * 2 * PI;
+    } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+      theta = theta + key;
+    }
+      
+  }
