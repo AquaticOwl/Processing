@@ -1,0 +1,84 @@
+float rectDim;
+float x;
+float y;
+float i;
+float xi;
+float yi;
+float ii;
+float r;
+float g;
+float b;
+float ri;
+float gi;
+float bi;
+int colorTurn;
+void setup(){
+  fullScreen();
+  noCursor();
+  rectDim = (width + height)/12;
+  x = (random(0, width - rectDim));
+  y = (random(0, height - rectDim));
+  xi = 3;
+  yi = xi;
+  i = 0;
+  ii = 0.01;
+  r = 1;
+  g = 1;
+  b = 1;
+  ri = 3;
+  gi = ri;
+  bi = ri;
+  colorTurn = 0;
+}
+
+void draw(){
+  background(#000000);
+  x += xi;
+  y += yi;
+  i += ii;
+  if(colorTurn == 0){
+  r += ri;
+  }
+  if(colorTurn == 1){
+  g += gi;
+  }
+  if(colorTurn == 2){
+  b += bi;
+  }
+  fill(r, g, b);
+  rect(x, y, rectDim, rectDim, rectDim/2 * abs(sin(i)));
+  if(x >= width - rectDim || x <= 0) {
+    xi = -xi;
+  }
+  if(y >= height - rectDim || y <= 0) {
+    yi = -yi;
+  }
+  /*if(i >= 1 || i <= 0) {
+    ii = -ii;
+  }*/
+  if(r >= 255) {
+    ri = -ri;
+  }
+  if(r <= 0){
+    colorTurn = 1;
+    ri = -ri;
+    r = 1;
+  }
+  if(g >= 255) {
+    gi = -gi;
+  }
+  if(g <= 0){
+    gi = -gi;
+    colorTurn = 2;
+    g = 1;
+  }
+  if(b >= 255) {
+    bi = -bi;
+  }
+  if(b <= 0) {
+    bi = -bi;
+    colorTurn = 0;
+    b = 1;
+  }
+  
+}
